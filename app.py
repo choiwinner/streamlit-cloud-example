@@ -29,6 +29,8 @@ with st.echo():
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
 
+        options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
+
         return webdriver.Chrome(
             service=Service(
                 ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
@@ -39,7 +41,15 @@ with st.echo():
     #options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
 
     driver = get_driver()
-    driver.get("https://www.naver.com/")
+
+    #st.session_state.url = st.text_input('원하시는 상품의 URL 주소를 입력해주세요\n\nEx)\nhttps://www.coupang.com/vp/products/7335597976?itemId=18741704367&vendorItemId=85873964906&q=%ED%9E%98%EB%82%B4%EB%B0%94+%EC%B4%88%EC%BD%94+%EC%8A%A4%EB%8B%88%EC%BB%A4%EC%A6%88&itemsCount=36&searchId=0c5c84d537bc41d1885266961d853179&rank=2&isAddedCart=:')
+
+    url = 'https://www.coupang.com/vp/products/7335597976?itemId=18741704367&vendorItemId=85873964906&q=%ED%9E%98%EB%82%B4%EB%B0%94+%EC%B4%88%EC%BD%94+%EC%8A%A4%EB%8B%88%EC%BB%A4%EC%A6%88&itemsCount=36&searchId=0c5c84d537bc41d1885266961d853179&rank=2&isAddedCart='
+
+    driver.get(url)
+
+
+    #driver.get("https://www.naver.com/")
 
     #st.code(driver.page_source)
 
@@ -53,7 +63,9 @@ with st.echo():
     html = driver.page_source
     soup = bs(html, 'html.parser')
     
-    result = soup.select('#sform > fieldset > div')
+    #result = soup.select('#sform > fieldset > div')  #naver
+
+    result = soup.select('div.sdp-review__article__list__review__content')
 #
     #count = len(result) #review 개수 확인
 #
