@@ -3,22 +3,24 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+import tempfile
 
 # Selenium 드라이버 설정
 def get_driver():
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--window-size=1920,1080")
-
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=chrome_options)
+    options = webdriver.ChromeOptions()
+    
+    options.add_argument('--disable-gpu')
+    options.add_argument('--headless')
+    #options.add_argument(f"--window-size={width}x{height}")
+    
+    service = Service()
+    driver = webdriver.Chrome(service=service, options=options)
+    
     return driver
 
 # Streamlit UI
 st.title("Selenium을 이용한 웹 크롤링")
+st.write("최재일")
 url = st.text_input("크롤링할 URL을 입력하세요:")
 
 if st.button("크롤링 시작"):
