@@ -1,4 +1,6 @@
 import streamlit as st
+import time
+from bs4 import BeautifulSoup as bs
 
 """
 ## Web scraping on Streamlit Cloud with Selenium
@@ -28,9 +30,29 @@ with st.echo():
 
     options = Options()
     options.add_argument("--disable-gpu")
-    options.add_argument("--headless")
+    #options.add_argument("--headless")
+    options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
 
     driver = get_driver()
-    driver.get("https://www.coupang.com/vp/products/7335597976?itemId=18741704367&vendorItemId=85873964906&q=%ED%9E%98%EB%82%B4%EB%B0%94+%EC%B4%88%EC%BD%94+%EC%8A%A4%EB%8B%88%EC%BB%A4%EC%A6%88&itemsCount=36&searchId=0c5c84d537bc41d1885266961d853179&rank=2&isAddedCart=:")
+    driver.get("https://www.naver.com/")
 
-    st.code(driver.page_source)
+    #st.code(driver.page_source)
+
+    # 쿠팡 상품 페이지 열기
+    #driver.get(URL)
+
+    # 페이지 로딩 대기(5초)
+    time.sleep(5) 
+    
+    # bs4로 리뷰 찾기
+    html = driver.page_source
+    soup = bs(html, 'html.parser')
+    
+    result = soup.select('#sform > fieldset > div')
+
+    count = len(result) #review 개수 확인
+
+    st.write(result)
+
+    if count >=5:
+        st.info(f'{count}의 Review가 성공적으로 검색되었습니다.')
