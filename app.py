@@ -30,8 +30,8 @@ with st.echo():
 
     options = Options()
     options.add_argument("--disable-gpu")
-    #options.add_argument("--headless")
-    options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
+    options.add_argument("--headless")
+    #options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
 
     driver = get_driver()
     driver.get("https://www.naver.com/")
