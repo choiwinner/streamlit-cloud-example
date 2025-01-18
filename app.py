@@ -36,7 +36,7 @@ with st.echo():
     driver = get_driver()
     driver.get("https://www.naver.com/")
 
-    st.code(driver.page_source)
+    #st.code(driver.page_source)
 
     # 쿠팡 상품 페이지 열기
     #driver.get(URL)
@@ -44,15 +44,15 @@ with st.echo():
     # 페이지 로딩 대기(5초)
     time.sleep(5) 
     
-    # bs4로 리뷰 찾기
-    #html = driver.page_source
-    #soup = bs(html, 'html.parser')
-    #
-    #result = soup.select('#sform > fieldset > div')
+    #bs4로 리뷰 찾기
+    html = driver.page_source
+    soup = bs(html, 'html.parser')
+    
+    result = soup.select('#sform > fieldset > div')
 #
     #count = len(result) #review 개수 확인
 #
-    #st.write(result)
+    st.write(result)
 #
     #if count >=5:
     #    st.info(f'{count}의 Review가 성공적으로 검색되었습니다.')
