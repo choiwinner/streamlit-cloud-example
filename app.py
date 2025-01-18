@@ -18,6 +18,7 @@ with st.echo():
     from selenium.webdriver.chrome.service import Service
     from webdriver_manager.chrome import ChromeDriverManager
     from webdriver_manager.core.os_manager import ChromeType
+    from selenium.webdriver.common.by import By
 
     @st.cache_resource
     def get_driver():
@@ -26,7 +27,7 @@ with st.echo():
         options = Options()
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
-        #options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--disable-gpu')
 
         options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,   #like Gecko) Chrome/58.0.3029.110 Safari/537.3')
@@ -65,11 +66,13 @@ with st.echo():
     
     #result = soup.select('#sform > fieldset > div')  #naver
 
-    result = soup.select('div.sdp-review__article__list__review__content')
+    results = driver.find_elements(By.CLASS_NAME, "sdp-review__article__list__review__content")
+
+    #result = soup.select('div.sdp-review__article__list__review__content')
 #
     #count = len(result) #review 개수 확인
-#
-    st.write(result)
-#
+
+    for element in results:
+        st.write(element.text)
     #if count >=5:
     #    st.info(f'{count}의 Review가 성공적으로 검색되었습니다.')
